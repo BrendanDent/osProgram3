@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class frameTable {
 	int size;
 	ArrayList<Integer[]> frameTable = new ArrayList<Integer[]>();// frame #,
-																	// proc #,
+	Boolean fault;														// proc #,
 																	// logical
 																	// addr
 	ArrayList<Integer> freeFrameList = new ArrayList<Integer>();
@@ -20,7 +20,7 @@ public class frameTable {
 	int useFrame(int proc, int addr) {
 		victAddr = -1;
 		victProc = -1;
-		boolean inFrame = false, fault = false;
+		boolean inFrame = false;
 		for (int i = 0; i < frameTable.size(); i++)
 			if (frameTable.get(i)[1] == proc && frameTable.get(i)[2] == addr) {
 				inFrame = true;

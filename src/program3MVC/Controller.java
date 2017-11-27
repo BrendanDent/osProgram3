@@ -24,10 +24,10 @@ public class Controller {
 				m.next();
 			}
 			if(e.getActionCommand() == v.fault.getActionCommand()){
-				//m.fault();
+				m.fault();
 			}
 			if(e.getActionCommand() == v.completion.getActionCommand()){
-				//m.completion;
+				m.completion();
 			}
 		}
 	}

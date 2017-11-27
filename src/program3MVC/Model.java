@@ -51,9 +51,6 @@ public class Model {
 					}
 					
 					match.addPage(addr, frameTable.useFrame(proc, addr));
-					if(frameTable.frameTable.size() != 0){
-			
-					}
 					v.update(frameTable, match.pageTable, proc, addr, frameTable.victProc, frameTable.victAddr);
 					
 					}
@@ -65,4 +62,81 @@ public class Model {
 					System.exit(1);
 				}
 	}
+	
+	public void fault(){
+		int proc, addr;
+		String line = null, split[];
+		boolean found = false, fault = false;
+		PCB match = null;
+				try {
+					while(fault == false && (line = reader.readLine()) != null) {
+					split = line.split(":");
+					proc = Integer.parseInt(split[0].substring(1));
+					addr =  Integer.parseInt(split[1].trim(), 2);
+					for(PCB p : processes) {
+						if(p.procNum == proc) {
+							found = true;
+							match = p;
+						}
+					}
+					if(!found){
+						processes.add(new PCB(proc));
+						match = processes.get(processes.size()-1);
+						
+					}
+					
+					match.addPage(addr, frameTable.useFrame(proc, addr));
+					if(frameTable.freeFrameList.size() != 0 || frameTable.victProc != -1){
+						fault = true;
+					}
+					v.update(frameTable, match.pageTable, proc, addr, frameTable.victProc, frameTable.victAddr);
+					
+					}
+					if(line == null) {
+						v.endOfFile();
+					}
+				} catch (IOException e1) {
+					System.out.println("File not found or not in correct format");
+					System.exit(1);
+				}
+	}
+	
+	public void completion(){
+		int proc, addr;
+		String line, split[];
+		boolean found = false;
+		PCB match = null;
+				try {
+					while((line = reader.readLine()) != null) {
+					split = line.split(":");
+					proc = Integer.parseInt(split[0].substring(1));
+					addr =  Integer.parseInt(split[1].trim(), 2);
+					for(PCB p : processes) {
+						if(p.procNum == proc) {
+							found = true;
+							match = p;
+						}
+					}
+					if(!found){
+						processes.add(new PCB(proc));
+						match = processes.get(processes.size()-1);
+						
+					}
+					
+					match.addPage(addr, frameTable.useFrame(proc, addr));
+					if(frameTable.frameTable.size() != 0){
+			
+					}
+					v.update(frameTable, match.pageTable, proc, addr, frameTable.victProc, frameTable.victAddr);
+					
+					}
+					v.endOfFile();
+					
+				} catch (IOException e1) {
+					System.out.println("File not found or not in correct format");
+					System.exit(1);
+				}
+	}
+	
+	
 }
