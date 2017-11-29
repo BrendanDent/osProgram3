@@ -2,11 +2,8 @@ package program3MVC;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//allows communication from view to model via actionListener
 public class Controller {
-	private final int ADDRESS_SPACE = 64;
-	private final int PYSICAL_MEMORY = 16;
-	private final int FRAME = 1;
 	View v;
 	Model m;
 	public Controller(Model m, View v){
